@@ -351,7 +351,7 @@ public:
                     input = input.substr(1,input.size());
                     unsigned opt = stoi(input)-1;
                     if(opt+1 > printer_queue.size()) {
-                        cout << "Requested Printer: " << opt << " Available Printers: " << printer_queue.size() << endl;
+                        cout << "Requested Printer: " << opt+1 << " Available Printers: " << printer_queue.size() << endl;
                         cout << "ERROR: Not valid printer" << endl;
                         break;
                     }
@@ -376,15 +376,18 @@ public:
                         break;
                     }
                     if(opt+1 > printer_queue.size()) {
-                        cout << "Requested Disk: " << opt << " Available Disks: " << printer_queue.size() << endl;
+                        cout << "Requested Printer: " << opt+1 << " Available Printers: " << printer_queue.size() << endl;
                         cout << "ERROR: Not valid printer" << endl;
                         break;
                     }
                     //Get running process and send next process to CPU
                     process *p = running_process;
-                    running_process = ready_queue.top();
-                    ready_queue.pop();
-                    
+                    if(ready_queue.empty()) {
+                        running_process = nullptr;
+                    } else {
+                        running_process = ready_queue.top();
+                        ready_queue.pop();
+                    }
                     string file_name, file_size;
                     cout << "Enter file name: " << endl;
                     cin >> file_name;
@@ -408,7 +411,7 @@ public:
                     input = input.substr(1,input.size());
                     unsigned opt = stoi(input)-1;
                     if(opt+1 > disk_queue.size()) {
-                        cout << opt << " " << disk_queue.size() << endl;
+                        cout << "Requested Disk: " << opt+1 << " Available Disks: " << disk_queue.size() << endl;
                         cout << "ERROR: Not valid disk" << endl;
                         break;
                     }
@@ -433,14 +436,18 @@ public:
                         break;
                     }
                     if(opt+1 > disk_queue.size()) {
-                        cout << opt << " " << disk_queue.size() << endl;
+                        cout << "Requested Disk: " << opt+1 << " Available Disks: " << disk_queue.size() << endl;
                         cout << "ERROR: Not valid disk" << endl;
                         break;
                     }
                     //Get running process and send next process to CPU
                     process *p = running_process;
-                    running_process = ready_queue.top();
-                    ready_queue.pop();
+                    if(ready_queue.empty()) {
+                        running_process = nullptr;
+                    } else {
+                        running_process = ready_queue.top();
+                        ready_queue.pop();
+                    }
                     string file_name, file_size;
                     cout << "Enter file name: " << endl;
                     cin >> file_name;
